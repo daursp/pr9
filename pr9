@@ -1,0 +1,75 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        LiveFlower rose = new LiveFlower("Роза", "Красный", "Сладкий");
+        Console.WriteLine(rose.GetName());
+        rose.Bloom();
+        rose.Water();
+        rose.Grow();
+
+        FakeFlower fakeTulp = new FakeFlower("Тюльпан", "Желтый", "Отсутствует");
+        Console.WriteLine(fakeTulp.GetName());
+        fakeTulp.Bloom();
+    }
+}
+
+abstract class Flower
+{
+    protected string Kind;
+    protected string Color;
+    protected string Smell;
+
+    public Flower(string kind, string color, string smell)
+    {
+        Kind = kind;
+        Color = color;
+        Smell = smell;
+    }
+
+    public string GetName()
+    {
+        return $"{Color} {Kind}";
+    }
+
+    public virtual void Bloom()
+    {
+        Console.WriteLine($"{GetName()} {Smell}");
+    }
+}
+
+class LiveFlower : Flower
+{
+    public LiveFlower(string kind, string color, string smell) : base(kind, color, smell)
+    {
+    }
+
+    public void Water()
+    {
+        Console.WriteLine($"{GetName()} Полив");
+    }
+
+    public void Grow()
+    {
+        Console.WriteLine($"{GetName()} Рост");
+    }
+
+    public override void Bloom()
+    {
+        Console.WriteLine($"{GetName()} {Smell}");
+    }
+}
+
+class FakeFlower : Flower
+{
+    public FakeFlower(string kind, string color, string smell) : base(kind, color, smell)
+    {
+    }
+
+    public override void Bloom()
+    {
+        Console.WriteLine($"{GetName()}");
+    }
+}
